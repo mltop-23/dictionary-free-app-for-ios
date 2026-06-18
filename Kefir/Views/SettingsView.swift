@@ -8,27 +8,63 @@ struct SettingsView: View {
     @State private var showSampleConfirm = false
     @State private var resultMessage: String?
     @AppStorage("gemini_api_key") private var geminiKey: String = ""
+    @AppStorage("openai_api_key") private var openaiKey: String = ""
+    @AppStorage("ai_provider") private var providerRaw: String = AIProvider.gemini.rawValue
     @State private var showKey: Bool = false
+
+    private var provider: AIProvider { AIProvider(rawValue: providerRaw) ?? .gemini }
+
+    private var keyBinding: Binding<String> {
+        switch provider {
+        case .gemini: return $geminiKey
+        case .openai: return $openaiKey
+        }
+    }
+
+    private var keyHint: String {
+        switch provider {
+        case .gemini: return "Ключ хранится локально. Бесплатный tier Gemini щедрый — хватит надолго."
+        case .openai: return "Ключ хранится локально. OpenAI платный по токенам, но модель gpt-4o-mini очень дешёвая."
+        }
+    }
 
     var body: some View {
         NavigationStack {
             Form {
-                Section("Gemini AI") {
-                    if showKey {
-                        TextField("API ключ", text: $geminiKey)
-                            .font(.system(.body, design: .monospaced))
-                            .autocorrectionDisabled()
-                            .textInputAutocapitalization(.never)
-                    } else {
-                        SecureField("API ключ", text: $geminiKey)
-                            .autocorrectionDisabled()
-                            .textInputAutocapitalization(.never)
+                Section("AI-провайдер") {
+                    Picker("Провайдер", selection: $providerRaw) {
+                        ForEach(AIProvider.allCases) { p in
+                            Text(p.title).tag(p.rawValue)
+                        }
                     }
+                    Text("Используется для AI-генерации карточек, примеров и проверки переводов. Если один провайдер не работает (лимит / сбой) — переключись на другой.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Section(provider.title + " — API-ключ") {
+                    Group {
+                        if showKey {
+                            TextField("API ключ", text: keyBinding)
+                                .font(.system(.body, design: .monospaced))
+                        } else {
+                            SecureField("API ключ", text: keyBinding)
+                        }
+                    }
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
+
                     Toggle("Показать ключ", isOn: $showKey)
-                    Link(destination: URL(string: "https://aistudio.google.com/apikey")!) {
-                        Label("Получить ключ (aistudio.google.com)", systemImage: "link")
+                    Link(destination: URL(string: provider.keyURL)!) {
+                        Label("Получить ключ", systemImage: "link")
                     }
-                    Text("Ключ хранится локально. Используется для AI-генерации карточек и примеров. Бесплатный tier щедрый — хватит надолго.")
+                    HStack {
+                        Text("Модель")
+                        Spacer()
+                        Text(provider.defaultModel).foregroundStyle(.secondary)
+                            .font(.system(.caption, design: .monospaced))
+                    }
+                    Text(keyHint)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

@@ -24,7 +24,7 @@ struct GenerateCardsView: View {
                         Task { await generate() }
                     } label: {
                         if isLoading {
-                            HStack { ProgressView(); Text("Gemini думает…") }
+                            HStack { ProgressView(); Text("AI думает…") }
                         } else {
                             Label("Сгенерировать карточки", systemImage: "sparkles")
                         }
@@ -79,7 +79,7 @@ struct GenerateCardsView: View {
         do {
             let result = try await GeminiService.shared.extractCards(from: inputText, mode: deck.mode)
             candidates = result
-            if result.isEmpty { errorMsg = "Gemini не вернул карточек — попробуй другой текст" }
+            if result.isEmpty { errorMsg = "AI не вернул карточек — попробуй другой текст" }
         } catch {
             errorMsg = error.localizedDescription
         }

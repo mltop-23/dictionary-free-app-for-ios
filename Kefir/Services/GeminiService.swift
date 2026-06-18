@@ -1,22 +1,12 @@
 import Foundation
 
-// Интеграция с Google Gemini API.
-// Бесплатный tier: получи ключ на https://aistudio.google.com/apikey
-// Модель gemini-2.0-flash — быстрая и дешёвая.
+// Высокоуровневые AI-операции (примеры, извлечение карточек, аудит переводов).
+// Сами промпты и парсинг — здесь; конкретный провайдер (Gemini / OpenAI GPT)
+// выбирается в AIBackend по настройке. Имя GeminiService сохранено для
+// совместимости с вызывающим кодом — фактически это провайдер-агностичный сервис.
 
-enum GeminiError: LocalizedError {
-    case noApiKey
-    case badResponse(String)
-    case parse(String)
-
-    var errorDescription: String? {
-        switch self {
-        case .noApiKey: return "Не задан API ключ Gemini. Настройки → Gemini API."
-        case .badResponse(let s): return "Gemini: \(s)"
-        case .parse(let s): return "Не удалось разобрать ответ: \(s)"
-        }
-    }
-}
+// Алиас на общий тип ошибки, чтобы старый код с GeminiError продолжал работать.
+typealias GeminiError = AIError
 
 struct GeminiCardCandidate: Identifiable, Codable {
     var id: UUID = UUID()
@@ -32,16 +22,6 @@ struct GeminiCardCandidate: Identifiable, Codable {
 
 struct GeminiService {
     static let shared = GeminiService()
-
-    private let model = "gemini-2.0-flash"
-    private var endpoint: String {
-        "https://generativelanguage.googleapis.com/v1beta/models/\(model):generateContent"
-    }
-
-    private var apiKey: String? {
-        let k = UserDefaults.standard.string(forKey: "gemini_api_key") ?? ""
-        return k.isEmpty ? nil : k
-    }
 
     // MARK: - Извлечение карточек из текста
 
@@ -191,54 +171,10 @@ struct GeminiService {
         return try await generate(prompt: prompt)
     }
 
-    // MARK: - Низкоуровневый вызов
+    // MARK: - Низкоуровневый вызов (через выбранного провайдера)
 
     private func generate(prompt: String) async throws -> String {
-        guard let key = apiKey else { throw GeminiError.noApiKey }
-        guard var comps = URLComponents(string: endpoint) else {
-            throw GeminiError.badResponse("bad url")
-        }
-        comps.queryItems = [URLQueryItem(name: "key", value: key)]
-        guard let url = comps.url else { throw GeminiError.badResponse("bad url") }
-
-        var req = URLRequest(url: url)
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let body: [String: Any] = [
-            "contents": [
-                ["parts": [["text": prompt]]]
-            ],
-            "generationConfig": [
-                "temperature": 0.3,
-                "maxOutputTokens": 4096
-            ]
-        ]
-        req.httpBody = try JSONSerialization.data(withJSONObject: body)
-
-        let (data, resp) = try await URLSession.shared.data(for: req)
-        guard let http = resp as? HTTPURLResponse else {
-            throw GeminiError.badResponse("no http response")
-        }
-        if http.statusCode != 200 {
-            let msg = String(data: data, encoding: .utf8) ?? "status \(http.statusCode)"
-            throw GeminiError.badResponse(msg.prefix(400).description)
-        }
-
-        struct GResp: Decodable {
-            struct Candidate: Decodable {
-                struct Content: Decodable {
-                    struct Part: Decodable { let text: String? }
-                    let parts: [Part]?
-                }
-                let content: Content?
-            }
-            let candidates: [Candidate]?
-        }
-        let parsed = try JSONDecoder().decode(GResp.self, from: data)
-        let text = parsed.candidates?.first?.content?.parts?.compactMap { $0.text }.joined() ?? ""
-        if text.isEmpty { throw GeminiError.badResponse("empty response") }
-        return text
+        try await AIBackend.generate(prompt: prompt)
     }
 
     // MARK: - Парсинг

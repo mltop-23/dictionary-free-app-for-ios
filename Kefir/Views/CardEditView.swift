@@ -68,7 +68,7 @@ struct CardEditView: View {
                     }
                 }
 
-                Section("AI — Gemini") {
+                Section("AI") {
                     Button {
                         Task { await loadExamples() }
                     } label: {

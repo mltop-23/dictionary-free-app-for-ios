@@ -45,7 +45,7 @@ struct TranslationAuditView: View {
                             if isLoading {
                                 HStack {
                                     ProgressView()
-                                    Text(progressText.isEmpty ? "Gemini думает…" : progressText)
+                                    Text(progressText.isEmpty ? "AI думает…" : progressText)
                                 }
                             } else if issues.isEmpty {
                                 Label("Запустить проверку", systemImage: "sparkles")
@@ -54,7 +54,7 @@ struct TranslationAuditView: View {
                             }
                         }
                         .disabled(isLoading)
-                        Text("Gemini проверит все \(deck.cards.count) карточек (батчами по 30). Займёт ~\((deck.cards.count / 30 + 1) * 5) секунд. Использует твой API ключ.")
+                        Text("AI проверит все \(deck.cards.count) карточек (батчами по 30). Займёт ~\((deck.cards.count / 30 + 1) * 5) секунд. Использует твой API ключ.")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -94,12 +94,12 @@ struct TranslationAuditView: View {
         errorMsg = nil
         issues = []
         handled = []
-        progressText = "Gemini думает..."
+        progressText = "AI думает..."
         defer { isLoading = false; progressText = "" }
         do {
             issues = try await GeminiService.shared.auditTranslations(cards: deck.cards)
             if issues.isEmpty {
-                errorMsg = "✅ Gemini не нашёл очевидных проблем"
+                errorMsg = "✅ AI не нашёл очевидных проблем"
             }
         } catch {
             errorMsg = "Ошибка: \(error.localizedDescription)"

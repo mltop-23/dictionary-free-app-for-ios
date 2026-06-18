@@ -42,6 +42,7 @@
 		AD5FB5593D9A46252FB70D94 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E8F93AD9A6A09754A1B17 /* Deck.swift */; };
 		AE529EE3B2636BDE32298C12 /* StudyLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA7A4B29BB8D6765331E729 /* StudyLog.swift */; };
 		B441B43F1B651912AF6F2700 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58940A7645E98DBF6592C1E5 /* SpeechService.swift */; };
+		C1E8E361258BE13923CB855E /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B9DF80604B0CD72DF8EA3D /* AIService.swift */; };
 		C754CEC505D2F8957DBDFA5A /* SRSEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AE952888E137A64D7A4837 /* SRSEngine.swift */; };
 		C7A619BDCDC3A85F4CBE374A /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8201D6724DD6BC1A58801 /* ReferenceView.swift */; };
 		C7DF2D3A461205EDEFF0DFB1 /* GrammarSpanish.swift in Sources */ = {isa = PBXBuildFile; fileRef = A722E4D1DD9F3866E126B414 /* GrammarSpanish.swift */; };
@@ -83,6 +84,7 @@
 		647577B817A8DF7E917DDF41 /* JapaneseSeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseSeedData.swift; sourceTree = "<group>"; };
 		6A0BFDFCEF5066A89A7BD6DD /* GrammarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrammarData.swift; sourceTree = "<group>"; };
 		6CBC30B6E582B7781D044707 /* EnglishExtraDecks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnglishExtraDecks.swift; sourceTree = "<group>"; };
+		77B9DF80604B0CD72DF8EA3D /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		79E5550D2F18648C33800B7A /* PortugueseThemeDecks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortugueseThemeDecks.swift; sourceTree = "<group>"; };
 		7C18D5B4CE8A96B757FD981A /* GenerateCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCardsView.swift; sourceTree = "<group>"; };
 		7EAF2A7E34AB36BCE5D9DD33 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		2951DE7E2A76D836F8103114 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				77B9DF80604B0CD72DF8EA3D /* AIService.swift */,
 				6CBC30B6E582B7781D044707 /* EnglishExtraDecks.swift */,
 				40417B4C9429B705CCB0E2DE /* EnglishLifeDecks.swift */,
 				A17DF2C660BF8D9DDAABF319 /* EnglishSeedData.swift */,
@@ -294,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1E8E361258BE13923CB855E /* AIService.swift in Sources */,
 				1640AC523B782087EB5886BF /* Card.swift in Sources */,
 				0D96E42C6C1CF4D79C7D72CA /* CardEditView.swift in Sources */,
 				58CADD2CDBA7F87BEC9E58FE /* CardListView.swift in Sources */,
@@ -380,7 +384,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -395,7 +399,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -479,7 +483,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
@@ -500,7 +504,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
