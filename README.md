@@ -16,7 +16,7 @@
 ![Stars](https://img.shields.io/badge/⭐_stars-0-2b2b2b?style=flat-square)
 ![Forks](https://img.shields.io/badge/forks-0-2b2b2b?style=flat-square)
 ![License](https://img.shields.io/badge/license-none-red?style=flat-square)
-![Version](https://img.shields.io/badge/version-1.5_(build_6)-22c55e?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.6_(build_7)-22c55e?style=flat-square)
 ![Languages](https://img.shields.io/badge/языка-EN_·_JA_·_PT_·_ES-22c55e?style=flat-square)
 ![Storage](https://img.shields.io/badge/хранение-локально-6e40c9?style=flat-square)
 ![Build](https://img.shields.io/badge/build-passing-22c55e?style=flat-square)
@@ -125,8 +125,8 @@ Kefir — личное iOS-приложение для зубрёжки инос
 |---|---|---|
 | 🇬🇧 Английский | 13 тем (времена, артикли, conditionals, phrasals, reported…) | ~1500 слов + тематические (IT/SRE, Travel, Жизнь и быт, Переезд…) |
 | 🇯🇵 Японский | 6 тем (хирагана, катакана, частицы, て-форма, счётные суффиксы…) | JLPT N5 + кана (числа, фразы, глаголы, прилагательные, семья) |
-| 🇧🇷 Португальский | 9 тем (алфавит, гласные, артикли, `ser`/`estar`, глаголы…) | базовые (6) + тематические (10): Путешествия, Покупки, Здоровье, Жильё |
-| 🇪🇸 Испанский | 9 тем | базовые (6) + тематические (10) |
+| 🇧🇷 Португальский | 9 тем (алфавит, гласные, артикли, `ser`/`estar`, глаголы…) | базовые (9: алфавит, правила чтения, фразы с нуля, повседневные, числа, глаголы…) + тематические (10): Путешествия, Покупки, Здоровье, Жильё |
+| 🇪🇸 Испанский | 9 тем | базовые (9) + тематические (10) |
 
 Везде — **транскрипция на русском**. Итого **4 языка · 37 таблиц** в справочнике.
 
@@ -217,7 +217,7 @@ apps/app/
 видна в **Настройки → О приложении**. Версия встроенного контента (набора колод)
 отслеживается отдельно — `SeedCoordinator.contentVersion`.
 
-Полная история — в [`CHANGELOG.md`](./CHANGELOG.md). Текущая версия — **1.5 (build 6)**.
+Полная история — в [`CHANGELOG.md`](./CHANGELOG.md). Текущая версия — **1.6 (build 7)**.
 
 ---
 

@@ -22,7 +22,7 @@ struct SeedCoordinator {
     /// следующем запуске — без переустановки и без потери прогресса.
     ///
     /// История версий — см. CHANGELOG.md.
-    static let contentVersion = 5
+    static let contentVersion = 6
     private static let versionKey = "content_seed_version"
 
     /// Запускается на старте приложения. До-засеивает встроенный контент, если он
